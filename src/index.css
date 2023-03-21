@@ -40,3 +40,7 @@ pre {
 pre::-webkit-scrollbar {
   display: none;
 }
+
+.react-syntax-highlighter-line-number {
+  display: none !important;
+}

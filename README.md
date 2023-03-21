@@ -1,6 +1,8 @@
 # @defer Presentation: ChicagoJS
 
-This collection of repositories and web projects were used to demonstrate entity-based defer with [Apollo Router](https://www.apollographql.com/docs/router/), [GraphOS](https://www.apollographql.com/docs/graphos/) and [Apollo Client](https://www.apollographql.com/docs/react) at the March 2023 meetup of ChicaogJS.
+![](./screenshot.png)
+
+This collection of projects were used to demonstrate entity-based defer with [Apollo Router](https://www.apollographql.com/docs/router/), [GraphOS](https://www.apollographql.com/docs/graphos/) and [Apollo Client](https://www.apollographql.com/docs/react) at the March 2023 meetup of ChicaogJS.
 
 ## Front-end Web Application
 

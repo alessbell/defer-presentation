@@ -18,7 +18,6 @@ import {
   SlideLayout,
   Heading,
   // Stepper,
-  Notes,
 } from "spectacle";
 
 // remove slow transition effects
@@ -39,7 +38,6 @@ const transition = {
 
 const theme = {
   colors: {
-    // primary: "white",
     secondary: "#FFA3E0",
     tertiary: "#311C87",
   },
@@ -67,21 +65,27 @@ const theme = {
 
 const backslash = String.raw`\\`.slice(1);
 
+const curl = `curl --request POST ${backslash}
+  --header 'content-type: application/json' ${backslash}
+  --header 'accept: multipart/mixed;boundary="graphql";deferSpec=20220824' ${backslash}
+  --url 'https://main--alessia-bellisarios-rfqf1c.apollographos.net/graphql' ${backslash}
+  --data '{"variables": {"name": "charmander"},"operationName": "Pokemon","query":"query Pokemon($name: String!) {...PokemonDetails @defer regions { results { id name __typename } __typename }} fragment PokemonDetails on Query {  pokemon(name: $name) { species { id }  __typename}}"}'`;
+
 function IFrame({ src }) {
   return (
     <div
       className="embed"
       style={{
-        height: "75vh",
+        height: "57em",
         marginTop: "2rem",
-        marginLeft: "-8rem",
-        width: "190%",
-        "-ms-zoom": 0.63,
-        "-moz-transform": "scale(0.63)",
+        marginLeft: "-10rem",
+        width: "180%",
+        "-ms-zoom": 0.69,
+        "-moz-transform": "scale(0.69)",
         "-moz-transform-origin": "0 0",
-        "-o-transform": "scale(0.63)",
+        "-o-transform": "scale(0.69)",
         "-o-transform-origin": "0 0",
-        "-webkit-transform": "scale(0.63)",
+        "-webkit-transform": "scale(0.69)",
         "-webkit-transform-origin": "0 0",
       }}
     >
@@ -129,104 +133,31 @@ function App() {
       <SlideLayout.Statement>
         <Heading fontSize="60px">⚡️ @defer all the slow things ⚡️</Heading>
         <Text textAlign="center">Alessia Bellisario, Apollo GraphQL</Text>
-        <Notes>
-          <ul>
-            <li>
-              thanks to Bitovi for hosting this event and to Heather for making
-              this happen, I'm so happy to be here!
-            </li>
-          </ul>
-        </Notes>
       </SlideLayout.Statement>
 
       <SlideLayout.VerticalImage
         objectFit="contain"
+        imgContainerProps={{ padding: "7rem" }}
         listItems={[
           "Former: product engineer at startups & bigcos",
           "Current: staff engineer, maintainer of @apollo/client",
-          "worked on @defer",
+          "Worked on @defer in AC",
           "@alessbell on the internet",
         ]}
         src="https://avatars.githubusercontent.com/u/5139846?v=4"
       ></SlideLayout.VerticalImage>
 
-      {/* why should JS devs care about this?
-      - state of JS survey
-      - state of graphql survey
-      - graphql is part of how we build modern applications today
-      - whether you use graphql as part of your day job or not, I hope you walk away with an understanding of defer and hopefully you can reach for it in the right moments in the future now that you're aware of what it is */}
-
-      {/* I know what you're thinking: Alessia this is a JS meetup! */}
-      <SlideLayout.FullBleedImage objectFit="contain" src={stateofjs1} />
-
-      <SlideLayout.FullBleedImage objectFit="contain" src={stateofjs2} />
-
-      <SlideLayout.BigFact>
-        <div>🐌⏳</div>
-        <Heading>The problem</Heading>
-      </SlideLayout.BigFact>
-
-      <SlideLayout.TwoColumn
-        left={
-          <div style={{ marginTop: "8rem" }}>
-            <CodePane
-              language="graphql"
-              theme={nightOwl}
-              showLineNumbers={false}
-            >
-              {`
-                query CoworkerQuery($name: String!) {
-                  pokemon(name: $name) { # slow
-                    stats
-                    abilities
-                    held_items
-                  }
-                  regions { # could be fast!
-                    name
-                  }
-                }
-              `}
-            </CodePane>
-          </div>
-        }
-        right={
-          <>
-            {/* <Heading>Before / after</Heading> */}
-            {/* <img
-              style={{ marginTop: "5rem" }}
-              src={
-                loading
-                // "https://user-images.githubusercontent.com/5139846/185925857-2a020340-dba9-4ca6-976c-4739f14c1993.gif"
-              }
-            /> */}
-            <IFrame src="https://defer-pokemon-app.vercel.app/" />
-
-            {/* <video controls style={{ height: "37vh", marginTop: "5rem" }}>
-              <source src={video} type="video/mp4" />
-            </video> */}
-
-            <Notes>
-              <ul>
-                <li>can only defer fragments, not individual fields</li>
-                <li>
-                  the beauty of GraphQL = a single query to describe all of your
-                  UI's data needs poses challenges as queries grow larger and
-                  some resolvers take longer to return their portion of the
-                  query
-                </li>
-                <li>your query is as slow as your slowest field</li>
-                <li>you can declaratively deprioritize part of the query</li>
-              </ul>
-            </Notes>
-          </>
-        }
+      <SlideLayout.FullBleedImage
+        imgContainerProps={{ padding: "7rem" }}
+        objectFit="contain"
+        src={stateofjs1}
       />
 
-      {/* <Slide>
-        <div className="embed">
-          <iframe src="https://defer-pokemon-app.vercel.app/" />
-        </div>
-      </Slide> */}
+      <SlideLayout.FullBleedImage
+        imgContainerProps={{ padding: "7rem" }}
+        objectFit="contain"
+        src={stateofjs2}
+      />
 
       <SlideLayout.List
         title="A brief history"
@@ -280,6 +211,37 @@ function App() {
         </Text>
       </Slide>
 
+      <SlideLayout.BigFact>
+        <div>🐌⏳</div>
+        <Heading>The problem</Heading>
+      </SlideLayout.BigFact>
+
+      <SlideLayout.TwoColumn
+        left={
+          <div style={{ marginTop: "8rem" }}>
+            <CodePane
+              language="graphql"
+              theme={nightOwl}
+              showLineNumbers={false}
+            >
+              {`
+                query CoworkerQuery($name: String!) {
+                  pokemon(name: $name) { # slow
+                    stats
+                    abilities
+                    held_items
+                  }
+                  regions { # could be fast!
+                    name
+                  }
+                }
+              `}
+            </CodePane>
+          </div>
+        }
+        right={<IFrame src="https://defer-pokemon-app.vercel.app/" />}
+      />
+
       <Slide>
         <div
           style={{
@@ -291,31 +253,39 @@ function App() {
           }}
         >
           <Heading>Accept: multipart/mixed</Heading>
-          <CodePane theme={nightOwl} showLineNumbers={false}>
-            {`
-curl --request POST ${backslash}
-  --header 'content-type: application/json' ${backslash}
-  --header 'accept: multipart/mixed;boundary="graphql";deferSpec=20220824' ${backslash}
-  --url 'https://main--alessia-bellisarios-rfqf1c.apollographos.net/graphql' ${backslash}
-  --data '{"variables": {"name": "charmander"},"operationName": "Pokemon","query":"query Pokemon($name: String!) {...PokemonDetails @defer regions { results { id name __typename } __typename }} fragment PokemonDetails on Query {  pokemon(name: $name) { species { id }  __typename}}"}'`}
+          <CodePane
+            theme={nightOwl}
+            highlightRanges={[
+              [0, 1],
+              [2, 2],
+              [3, 3],
+              [4, 4],
+              [5, 12],
+            ]}
+            language="bash"
+          >
+            {`curl --request POST ${backslash}
+     --header 'content-type: application/json' ${backslash}
+     --header 'accept: multipart/mixed;boundary="graphql";deferSpec=20220824' ${backslash}
+     --url 'https://main--alessia-bellisarios-rfqf1c.apollographos.net/graphql' ${backslash}
+     --data '{
+       "variables": { "name": "charmander" },
+       "query": "query Pokemon($name: String!) {
+         ... @defer {
+           pokemon(name: $name) { species { id } __typename }
+         }
+         regions { results { id name __typename } __typename }"
+       }'`}
           </CodePane>
+          <button
+            style={{ fontSize: "16px", width: "10rem", marginTop: "1rem" }}
+            onClick={() => {
+              navigator.clipboard.writeText(curl);
+            }}
+          >
+            Copy to clipboard
+          </button>
         </div>
-        <Notes>
-          <ul>
-            <li>
-              apollo client adds the multipart/mixed header to the request if it
-              sees defer directive in the document
-            </li>
-            <li>
-              content-type header on the response is multipart/mixed which tells
-              AC to parse the bytes in the ReadableStream chunks
-            </li>
-            <li>
-              fetch API gives us a ReadableStream of byte data through the body
-              property of a Response object
-            </li>
-          </ul>
-        </Notes>
       </Slide>
 
       <Slide>
@@ -369,36 +339,7 @@ content-type: application/json
             </CodePane>
           </div>
         }
-        right={
-          <>
-            {/* <Heading>Before / after</Heading> */}
-            {/* <img
-              style={{ marginTop: "5rem" }}
-              src={
-                loading
-                // "https://user-images.githubusercontent.com/5139846/185925857-2a020340-dba9-4ca6-976c-4739f14c1993.gif"
-              }
-            /> */}
-            <IFrame src="https://defer-pokemon-app.vercel.app/deferred" />
-            {/* <video controls style={{ height: "37vh", marginTop: "5rem" }}>
-              <source src={video} type="video/mp4" />
-            </video> */}
-
-            <Notes>
-              <ul>
-                <li>can only defer fragments, not individual fields</li>
-                <li>
-                  the beauty of GraphQL = a single query to describe all of your
-                  UI's data needs poses challenges as queries grow larger and
-                  some resolvers take longer to return their portion of the
-                  query
-                </li>
-                <li>your query is as slow as your slowest field</li>
-                <li>you can declaratively deprioritize part of the query</li>
-              </ul>
-            </Notes>
-          </>
-        }
+        right={<IFrame src="https://defer-pokemon-app.vercel.app/deferred" />}
       />
       <SlideLayout.TwoColumn
         left={
@@ -416,8 +357,8 @@ content-type: application/json
                         image={image}
                         pokemon={data?.pokemon}
                       />
-                      <RegionList
-                        regions={data?.regions}
+                      <OfficeList
+                        offices={data?.regions}
                       />
                     </>
                   );
@@ -426,33 +367,7 @@ content-type: application/json
             </CodePane>
           </div>
         }
-        right={
-          <>
-            {/* <Heading>Before / after</Heading> */}
-            {/* <img
-              style={{ marginTop: "5rem" }}
-              src={
-                loading
-                // "https://user-images.githubusercontent.com/5139846/185925857-2a020340-dba9-4ca6-976c-4739f14c1993.gif"
-              }
-            /> */}
-            <IFrame src="https://defer-pokemon-app.vercel.app/deferred" />
-
-            <Notes>
-              <ul>
-                <li>can only defer fragments, not individual fields</li>
-                <li>
-                  the beauty of GraphQL = a single query to describe all of your
-                  UI's data needs poses challenges as queries grow larger and
-                  some resolvers take longer to return their portion of the
-                  query
-                </li>
-                <li>your query is as slow as your slowest field</li>
-                <li>you can declaratively deprioritize part of the query</li>
-              </ul>
-            </Notes>
-          </>
-        }
+        right={<IFrame src="https://defer-pokemon-app.vercel.app/deferred" />}
       />
 
       <Slide>
@@ -473,11 +388,6 @@ content-type: application/json
             </li>
           </ul>
         </Text>
-        <Notes>
-          <ul>
-            <li></li>
-          </ul>
-        </Notes>
       </Slide>
 
       <Slide>
@@ -546,7 +456,42 @@ query Pokemon($name: String!) {
       <SlideLayout.BigFact>
         <div>
           <Heading>Thank you!</Heading>
-          <Text>https://github.com/alessbell/defer-presentation</Text>
+          <Text>
+            Slides:{" "}
+            <a
+              target="_blank"
+              href="https://github.com/alessbell/defer-presentation"
+            >
+              github.com/alessbell/defer-presentation
+            </a>
+          </Text>
+          <Text>
+            App:{" "}
+            <a
+              target="_blank"
+              href="https://github.com/alessbell/defer-pokemon-app"
+            >
+              github.com/alessbell/defer-pokemon-app
+            </a>
+          </Text>
+          <Text>
+            GraphOS:{" "}
+            <a
+              target="_blank"
+              href="https://studio.apollographql.com/public/alessia-bellisarios-rfqf1c"
+            >
+              studio.apollographql.com/public/alessia-bellisarios-rfqf1c
+            </a>
+          </Text>
+          <Text>
+            Fullstack tutorial:{" "}
+            <a
+              target="_blank"
+              href="https://apollographql.com/blog/platform/fullstack-graphql-tutorial-defer-and-apollo-graphos/"
+            >
+              apollographql.com/blog/platform/fullstack-graphql-tutorial-defer-and-apollo-graphos/
+            </a>
+          </Text>
         </div>
       </SlideLayout.BigFact>
     </Deck>
