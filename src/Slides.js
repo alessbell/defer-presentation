@@ -308,7 +308,10 @@ content-type: application/json
       <Slide>
         <Heading>Accept: multipart/mixed</Heading>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={terminalizer} />
+          <img
+            style={{ width: "75em", marginTop: "-1.5em" }}
+            src={terminalizer}
+          />
         </div>
       </Slide>
 
