@@ -3,6 +3,9 @@ import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { ApolloExplorer } from "@apollo/explorer/react";
 import stateofjs1 from "./media/stateofjs1.png";
 import stateofjs2 from "./media/stateofjs2.png";
+import multipartRFC1 from "./media/multipartRFC1.png";
+import multipartRFC2 from "./media/multipartRFC2.png";
+import codeGen from "./media/codeGen.png";
 import terminalizer from "./media/terminalizer.gif";
 
 import {
@@ -17,7 +20,6 @@ import {
   Progress,
   SlideLayout,
   Heading,
-  // Stepper,
 } from "spectacle";
 
 // remove slow transition effects
@@ -89,7 +91,7 @@ function IFrame({ src }) {
         "-webkit-transform-origin": "0 0",
       }}
     >
-      <iframe src={src} />
+      <iframe title={src} src={src} />
     </div>
   );
 }
@@ -166,6 +168,7 @@ function App() {
             @defer + @stream: first described by Lee Byron at{" "}
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://www.youtube.com/watch?v=ViXL0YQnioU"
             >
               React Europe 2016
@@ -177,6 +180,7 @@ function App() {
             currently a{" "}
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://github.com/graphql/graphql-spec/pull/742"
             >
               Stage 2 Draft Proposal
@@ -289,7 +293,41 @@ function App() {
       </Slide>
 
       <Slide>
-        <Heading>Accept: multipart/mixed</Heading>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <Heading>Content-Type: multipart/mixed</Heading>
+          <img
+            style={{ width: "60rem", marginTop: "-3rem" }}
+            alt=""
+            src={multipartRFC1}
+          />
+          <a
+            style={{ display: "flex", marginTop: "-2rem" }}
+            href="https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html"
+          >
+            RFC1341 (1992)
+          </a>
+        </FlexBox>
+      </Slide>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <Heading>Content-Type: multipart/mixed</Heading>
+          <img
+            style={{ width: "60rem", marginTop: "-3rem" }}
+            alt=""
+            src={multipartRFC2}
+          />
+          <a
+            style={{ display: "flex", marginTop: "-2rem" }}
+            href="https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html"
+          >
+            RFC1341 (1992)
+          </a>
+        </FlexBox>
+      </Slide>
+
+      <Slide>
+        <Heading>Content-Type: multipart/mixed</Heading>
         <CodePane theme={nightOwl} showLineNumbers={false}>
           {`
 --graphql
@@ -306,10 +344,11 @@ content-type: application/json
         </CodePane>
       </Slide>
       <Slide>
-        <Heading>Accept: multipart/mixed</Heading>
+        {/* <Heading>Accept: multipart/mixed</Heading> */}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <img
-            style={{ width: "75em", marginTop: "-1.5em" }}
+            alt=""
+            style={{ width: "75em", marginTop: "5em" }}
             src={terminalizer}
           />
         </div>
@@ -374,14 +413,13 @@ content-type: application/json
       />
 
       <Slide>
-        <Heading>Caniuse?</Heading>
+        <Heading>Caniuse? Yes! 🎉</Heading>
         <Text>
           <ul>
-            <li>various servers and clients claim to support @defer...</li>
-            <li>compatibility: which version of the spec do they implement?</li>
             <li>
               Apollo Router and entity-based @defer (
               <a
+                rel="noreferrer"
                 target="_blank"
                 href="https://www.apollographql.com/blog/platform/fullstack-graphql-tutorial-defer-and-apollo-graphos/"
               >
@@ -389,6 +427,8 @@ content-type: application/json
               </a>
               )
             </li>
+            <li>various servers and clients support @defer...</li>
+            <li>compatibility: which version of the spec do they implement?</li>
           </ul>
         </Text>
       </Slide>
@@ -456,6 +496,30 @@ query Pokemon($name: String!) {
         </div>
       </Slide>
 
+      <Slide>
+        <FlexBox
+          flexDirection="column"
+          justifyContent="center"
+          // position="absolute"
+          // bottom={0}
+          // width={1}
+        >
+          <img
+            alt=""
+            style={{ marginTop: "1.5rem", width: "59rem" }}
+            src={codeGen}
+          />
+          <a
+            target="_blank"
+            rel="noreferrer"
+            style={{ display: "flex" }}
+            href="https://github.com/dotansimha/graphql-code-generator/pull/8785"
+          >
+            graphql-code-generator PR #8785
+          </a>
+        </FlexBox>
+      </Slide>
+
       <SlideLayout.BigFact>
         <div>
           <Heading>Thank you!</Heading>
@@ -463,6 +527,7 @@ query Pokemon($name: String!) {
             Slides:{" "}
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://github.com/alessbell/defer-presentation"
             >
               github.com/alessbell/defer-presentation
@@ -472,6 +537,7 @@ query Pokemon($name: String!) {
             App:{" "}
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://github.com/alessbell/defer-pokemon-app"
             >
               github.com/alessbell/defer-pokemon-app
@@ -481,6 +547,7 @@ query Pokemon($name: String!) {
             GraphOS:{" "}
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://studio.apollographql.com/public/alessia-bellisarios-rfqf1c"
             >
               studio.apollographql.com/public/alessia-bellisarios-rfqf1c
@@ -490,6 +557,7 @@ query Pokemon($name: String!) {
             Fullstack tutorial:{" "}
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://apollographql.com/blog/platform/fullstack-graphql-tutorial-defer-and-apollo-graphos/"
             >
               apollographql.com/blog/platform/fullstack-graphql-tutorial-defer-and-apollo-graphos/
