@@ -191,7 +191,7 @@ function App() {
         </Heading>
         <Text>
           <ul>
-            <li>deprioritize some fields on a query using fragments</li>
+            <li>deprioritize delivery of some fields using fragments</li>
             <li>
               <i>both</i>{" "}
               <a
