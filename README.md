@@ -1,4 +1,4 @@
-# @defer Presentation: GraphQL Conf
+# @defer all the slow things: GraphQL Conf
 
 ## Front-end Web Application
 
