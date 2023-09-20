@@ -1,5 +1,7 @@
 # @defer all the slow things: GraphQL Conf
 
+[View the deployed slides](https://defer-presentation.vercel.app/).
+
 ## Front-end Web Application
 
 - Code: [https://github.com/alessbell/defer-pokemon-app](https://github.com/alessbell/defer-pokemon-app)
