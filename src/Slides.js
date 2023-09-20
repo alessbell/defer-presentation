@@ -1,9 +1,7 @@
 import React from "react";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { ApolloExplorer } from "@apollo/explorer/react";
 import code from "./media/code.png";
-import readableStream from "./media/readablestream.jpg";
-import multipartRFC2 from "./media/multipartRFC2.png";
+import multipartRFC from "./media/multipartRFC.jpg";
 import terminalizer from "./media/terminalizer.gif";
 
 import {
@@ -164,7 +162,10 @@ function App() {
                 React Europe 2016
               </a>
             </li>
-            <li>@stream: defers execution of fields that return lists</li>
+            <li>
+              @stream: partial items of List type in initial response,
+              subsequent items later
+            </li>
             <li>
               currently a{" "}
               <a
@@ -214,9 +215,8 @@ function App() {
       </Slide>
 
       <SlideLayout.BigFact>
-        {/* <div>🐌⏳</div> */}
-        <img style={{ width: "30rem", marginTop: "5rem" }} alt="" src={code} />
         <Heading>The problem 🐌⏳</Heading>
+        <img style={{ width: "30rem", marginTop: "5rem" }} alt="" src={code} />
       </SlideLayout.BigFact>
 
       <SlideLayout.TwoColumn
@@ -245,7 +245,6 @@ function App() {
         right={
           <>
             <IFrame src="https://defer-pokemon-app.vercel.app/" />
-            <Notes>Test</Notes>
           </>
         }
       />
@@ -267,37 +266,9 @@ function App() {
                       held_items
                     }
                   }
-                  officeRegions { # ⚡️
+                  regions { # ⚡️
                     name
                   }
-                }
-              `}
-            </CodePane>
-          </div>
-        }
-        right={<IFrame src="https://defer-pokemon-app.vercel.app/deferred" />}
-      />
-      <SlideLayout.TwoColumn
-        left={
-          <div style={{ marginTop: "5.5rem" }}>
-            <CodePane language="jsx" theme={nightOwl} showLineNumbers={false}>
-              {`
-                function CoworkerDetails({ name }) {
-                  const { data } = useQuery(query, {
-                    variables: { name },
-                  });
-                
-                  return (
-                    <>
-                      <Card
-                        image={image}
-                        pokemon={data?.pokemon}
-                      />
-                      <OfficeList
-                        offices={data?.regions}
-                      />
-                    </>
-                  );
                 }
               `}
             </CodePane>
@@ -351,18 +322,7 @@ function App() {
           </button>
         </div>
         <Notes>
-          That feels pretty magical. What's going on under the hood? Let's break
-          down this request: we have a our standard content-type header because
-          we're sending some JSON data. Next we have our accept header: we're
-          telling the server that our client can understand multipart/mixed
-          responses, specifying the boundary we want to use to as a delimiter
-          between our chunks of data, and a deferSpec version here - this is
-          used by Apollo's router for backward compatibility since the spec is
-          still in draft. Next we have our url, which is pointing to our graph
-          which has the Apollo router sitting in front of it giving us @defer
-          for free regardless of how we've built our subgraphs, and finally our
-          variables and query data. We've wrapped the part of our query that's
-          fetching our Pokemon in an inline fragment.
+          That feels pretty magical. What's going on under the hood?
         </Notes>
       </Slide>
 
@@ -373,17 +333,6 @@ function App() {
             alt=""
             style={{ width: "75em", marginTop: "5em" }}
             src={terminalizer}
-          />
-        </div>
-      </Slide>
-
-      <Slide>
-        {/* <Heading>Accept: multipart/mixed</Heading> */}
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <img
-            alt=""
-            style={{ width: "75em", marginTop: "5em" }}
-            src={readableStream}
           />
         </div>
       </Slide>
@@ -407,53 +356,38 @@ content-type: application/json
         <Notes>
           - apollo client adds the multipart/mixed header to the request if it
           sees defer directive in the document
+          <br /> - fetch API gives us a ReadableStream of byte data through the
+          body property of our Response object
           <br /> - content-type header on the response is multipart/mixed which
           tells AC to parse the bytes in the ReadableStream chunks
-          <br /> - fetch API gives us a ReadableStream of byte data through the
-          body property of a Response object
+          <br />- built using a delivery mechanism that leverages a content-type
+          specified in 1992
         </Notes>
       </Slide>
-
-      {/* <Slide>
-        <FlexBox flexDirection="column" justifyContent="center">
-          <Heading>Content-Type: multipart/mixed</Heading>
-          <img
-            style={{ width: "60rem", marginTop: "-3rem" }}
-            alt=""
-            src={multipartRFC1}
-          />
-          <a
-            style={{ display: "flex", marginTop: "-2rem" }}
-            href="https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html"
-          >
-            RFC1341 (1992)
-          </a>
-        </FlexBox>
-      </Slide> */}
 
       <Slide>
         <FlexBox flexDirection="column" justifyContent="center">
           <Heading>Content-Type: multipart/mixed</Heading>
           <img
-            style={{ width: "60rem", marginTop: "-3rem" }}
+            style={{ width: "60rem", marginTop: "0rem" }}
             alt=""
-            src={multipartRFC2}
+            src={multipartRFC}
           />
           <a
-            style={{ display: "flex", marginTop: "-2rem" }}
+            style={{ display: "flex", marginTop: "1.5rem" }}
             href="https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html"
           >
             RFC1341 (1992)
           </a>
         </FlexBox>
         <Notes>
-          the idea of the configurable accept:multipart/mixed;boundary= string
-          dates back to the original HTTP multipart protocol, before GraphQL: .
-          since the boundary needs to be unambiguous, often a random string like
-          --gc0p4Jq0M2Yt08jU534c0p is used --graphql works fine for GraphQL’s
-          needs (no need for something uglier), for a specific reason: in
-          GraphQL, we assume we’re only delivering JSON, and JSON never starts
-          or ends with the unquoted characters graphql
+          - the idea of the configurable accept:multipart/mixed;boundary= string
+          dates back to the original HTTP multipart protocol, before GraphQL
+          <br />- since the boundary needs to be unambiguous, often a random
+          string like --gc0p4Jq0M2Yt08jU534c0p is used --graphql works fine for
+          GraphQL’s needs (no need for something uglier), for a specific reason:
+          in GraphQL, we assume we’re only delivering JSON, and JSON never
+          starts or ends with the unquoted characters graphql
         </Notes>
       </Slide>
 
@@ -474,8 +408,8 @@ content-type: application/json
               </a>
               )
             </li>
-            <li>Many OSS servers and clients support @defer</li>
-            {/* <li>Compatibility: which version of the spec do they implement?</li> */}
+            <li>Many other servers and clients support @defer</li>
+            <li>Compatibility: which version of the spec do they implement?</li>
             <li>
               A suspenseful useFragment hook for Apollo Client is coming soon in
               v3.9
@@ -495,93 +429,6 @@ content-type: application/json
         </Notes>
       </Slide>
 
-      {/* <Slide>
-        <div className="explorer" style={{ height: "100%", margin: "1rem 0" }}>
-          <ApolloExplorer
-            style={{ height: "100%" }}
-            graphRef="alessia-bellisarios-rfqf1c@main"
-            persistExplorerState={false}
-            initialState={{
-              document: `
-query Pokemon($name: String!) {
-  pokemon(name: $name) {
-    species {
-      id
-      name
-    }
-    stats {
-      base_stat
-      effort
-      stat {
-        id
-        name
-      }
-    }
-    held_items {
-      item {
-        id
-        url
-        name
-      }
-    }
-    abilities {
-      ability {
-        id
-        url
-        name
-      }
-    }
-  }
-  regions {
-    count
-    next
-    previous
-    results {
-      id
-      name
-    }
-    status
-    message
-  }
-}
-           
-`,
-              variables: {},
-              headers: {},
-              displayOptions: {
-                showHeadersAndEnvVars: true,
-                docsPanelState: "open",
-                theme: "dark",
-              },
-            }}
-          />
-        </div>
-      </Slide> */}
-
-      {/* <Slide>
-        <FlexBox
-          flexDirection="column"
-          justifyContent="center"
-          // position="absolute"
-          // bottom={0}
-          // width={1}
-        >
-          <img
-            alt=""
-            style={{ marginTop: "1.5rem", width: "59rem" }}
-            src={codeGen}
-          />
-          <a
-            target="_blank"
-            rel="noreferrer"
-            style={{ display: "flex" }}
-            href="https://github.com/dotansimha/graphql-code-generator/pull/8785"
-          >
-            graphql-code-generator PR #8785
-          </a>
-        </FlexBox>
-      </Slide> */}
-
       <SlideLayout.BigFact>
         <div>
           <Heading>Thank you!</Heading>
@@ -595,26 +442,7 @@ query Pokemon($name: String!) {
               github.com/alessbell/defer-presentation
             </a>
           </Text>
-          <Text>
-            App:{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://github.com/alessbell/defer-pokemon-app"
-            >
-              github.com/alessbell/defer-pokemon-app
-            </a>
-          </Text>
-          <Text>
-            GraphOS:{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://studio.apollographql.com/public/alessia-bellisarios-rfqf1c"
-            >
-              studio.apollographql.com/public/alessia-bellisarios-rfqf1c
-            </a>
-          </Text>
+
           <Text>
             Fullstack tutorial:{" "}
             <a
