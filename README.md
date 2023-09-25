@@ -1,4 +1,6 @@
-# @defer Presentation: GraphQL Conf
+# @defer all the slow things: GraphQL Conf
+
+[View the deployed slides](https://defer-presentation.vercel.app/).
 
 ## Front-end Web Application
 
