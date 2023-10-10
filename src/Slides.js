@@ -1,5 +1,7 @@
 import React from "react";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { ApolloExplorer } from "@apollo/explorer/react";
+
 import code from "./media/code.png";
 import multipartRFC from "./media/multipartRFC.jpg";
 import terminalizer from "./media/terminalizer.gif";
@@ -80,12 +82,12 @@ function IFrame({ src }) {
         marginTop: "1.5rem",
         marginLeft: "-11rem",
         width: "180%",
-        "-ms-zoom": 0.72,
-        "-moz-transform": "scale(0.72)",
+        "-ms-zoom": 0.75,
+        "-moz-transform": "scale(0.75)",
         "-moz-transform-origin": "0 0",
-        "-o-transform": "scale(0.72)",
+        "-o-transform": "scale(0.75)",
         "-o-transform-origin": "0 0",
-        "-webkit-transform": "scale(0.72)",
+        "-webkit-transform": "scale(0.75)",
         "-webkit-transform-origin": "0 0",
       }}
     >
@@ -131,15 +133,6 @@ function App() {
       )}
     >
       <SlideLayout.FullBleedImage src={firstSlide} />
-      {/* <SlideLayout.Statement>
-        <Heading fontSize="60px">⚡️ @defer all the slow things ⚡️</Heading>
-        <Text textAlign="center">Alessia Bellisario, Apollo</Text>
-        <Notes>
-          Thank you to the organizers for having me here! This will be a
-          lightning talk with lots of lightning bolts
-        </Notes>
-      </SlideLayout.Statement> */}
-
       <SlideLayout.VerticalImage
         objectFit="contain"
         imgContainerProps={{ padding: "7rem" }}
@@ -150,7 +143,6 @@ function App() {
         ]}
         src="https://avatars.githubusercontent.com/u/5139846?v=4"
       ></SlideLayout.VerticalImage>
-
       <Slide>
         <Heading>A brief history</Heading>
         <Text>
@@ -187,7 +179,6 @@ function App() {
           because they're the subject of a single proposal.
         </Notes>
       </Slide>
-
       <Slide>
         <Heading>
           What <i>is</i> @defer?
@@ -216,12 +207,10 @@ function App() {
           delivery isn't inherently tied to “directives”
         </Notes>
       </Slide>
-
       <SlideLayout.BigFact>
         <Heading>The problem 🐌⏳</Heading>
         <img style={{ width: "30rem", marginTop: "5rem" }} alt="" src={code} />
       </SlideLayout.BigFact>
-
       <SlideLayout.TwoColumn
         left={
           <div style={{ marginTop: "8rem" }}>
@@ -231,7 +220,7 @@ function App() {
               showLineNumbers={false}
             >
               {`
-                query CoworkerQuery($name: String!) {
+                query PokemonQuery($name: String!) {
                   pokemon(name: $name) { # slow
                     stats
                     abilities
@@ -251,7 +240,6 @@ function App() {
           </>
         }
       />
-
       <SlideLayout.TwoColumn
         left={
           <div style={{ marginTop: "8rem" }}>
@@ -261,7 +249,7 @@ function App() {
               showLineNumbers={false}
             >
               {`
-                query CoworkerQuery($name: String!) {
+                query PokemonQuery($name: String!) {
                   ... @defer {
                     pokemon(name: $name) { # 🐌
                       stats
@@ -279,7 +267,6 @@ function App() {
         }
         right={<IFrame src="https://defer-pokemon-app.vercel.app/deferred" />}
       />
-
       <Slide>
         <div
           style={{
@@ -328,7 +315,6 @@ function App() {
           That feels pretty magical. What's going on under the hood?
         </Notes>
       </Slide>
-
       <Slide>
         {/* <Heading>Accept: multipart/mixed</Heading> */}
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -339,7 +325,6 @@ function App() {
           />
         </div>
       </Slide>
-
       <Slide>
         <Heading>Content-Type: multipart/mixed</Heading>
         <CodePane theme={nightOwl} showLineNumbers={false}>
@@ -367,7 +352,6 @@ content-type: application/json
           specified in 1992
         </Notes>
       </Slide>
-
       <Slide>
         <FlexBox flexDirection="column" justifyContent="center">
           <Heading>Content-Type: multipart/mixed</Heading>
@@ -393,9 +377,46 @@ content-type: application/json
           starts or ends with the unquoted characters graphql
         </Notes>
       </Slide>
+      <Slide>
+        <div className="explorer" style={{ height: "100%", margin: "1rem 0" }}>
+          <ApolloExplorer
+            style={{ height: "100%" }}
+            graphRef="alessia-bellisarios-rfqf1c@main"
+            persistExplorerState={false}
+            initialState={{
+              document: `query Pokemon($name: String!) {
+  pokemon(name: $name) {
+    abilities {
+      ability {
+        id
+        name
+      }
+    }
+  }
+  regions {
+    results {
+      id
+      name
+    }
+  }
+}
+           
+`,
+              variables: {
+                name: "pikachu",
+              },
+              headers: {},
+              displayOptions: {
+                showHeadersAndEnvVars: true,
+                docsPanelState: "closed",
+                theme: "dark",
+              },
+            }}
+          />
+        </div>
+      </Slide>
 
       {/* https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html */}
-
       <Slide>
         <Heading>Caniuse? Yes! 🎉</Heading>
         <Text>
@@ -431,7 +452,6 @@ content-type: application/json
           states
         </Notes>
       </Slide>
-
       <SlideLayout.BigFact>
         <div>
           <Heading>Thank you!</Heading>
@@ -458,7 +478,6 @@ content-type: application/json
           </Text>
         </div>
       </SlideLayout.BigFact>
-
       <SlideLayout.FullBleedImage src={lastSlide} />
     </Deck>
   );
