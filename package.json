@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/explorer": "3.5.0",
+    "@apollo/explorer": "3.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "15.5.0",
-    "spectacle": "10.1.4",
+    "spectacle": "10.1.6",
     "use-deep-compare-effect": "1.8.1"
   },
   "scripts": {
