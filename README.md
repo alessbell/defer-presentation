@@ -1,4 +1,4 @@
-# @defer all the slow things: GraphQL Conf
+# Query now, render later: leveraging `@defer` for efficient data delivery
 
 [View the deployed slides](https://defer-presentation.vercel.app/).
 

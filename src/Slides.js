@@ -3,6 +3,8 @@ import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import code from "./media/code.png";
 import multipartRFC from "./media/multipartRFC.jpg";
 import terminalizer from "./media/terminalizer.gif";
+import firstSlide from "./media/firstSlide.jpg";
+import lastSlide from "./media/lastSlide.jpg";
 
 import {
   Text,
@@ -128,14 +130,15 @@ function App() {
         </>
       )}
     >
-      <SlideLayout.Statement>
+      <SlideLayout.FullBleedImage src={firstSlide} />
+      {/* <SlideLayout.Statement>
         <Heading fontSize="60px">⚡️ @defer all the slow things ⚡️</Heading>
         <Text textAlign="center">Alessia Bellisario, Apollo</Text>
         <Notes>
           Thank you to the organizers for having me here! This will be a
           lightning talk with lots of lightning bolts
         </Notes>
-      </SlideLayout.Statement>
+      </SlideLayout.Statement> */}
 
       <SlideLayout.VerticalImage
         objectFit="contain"
@@ -455,6 +458,8 @@ content-type: application/json
           </Text>
         </div>
       </SlideLayout.BigFact>
+
+      <SlideLayout.FullBleedImage src={lastSlide} />
     </Deck>
   );
 }
