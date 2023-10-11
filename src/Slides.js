@@ -5,8 +5,18 @@ import { ApolloExplorer } from "@apollo/explorer/react";
 import code from "./media/code.png";
 import multipartRFC from "./media/multipartRFC.jpg";
 import terminalizer from "./media/terminalizer.gif";
-import firstSlide from "./media/firstSlide.jpg";
-import lastSlide from "./media/lastSlide.jpg";
+import devtoolsVideo from "./media/devtools2.mp4";
+import lastSlide from "./media/lastSlide.png";
+import ourTeam from "./media/ourTeam.png";
+import ourTeam2 from "./media/ourTeam2.png";
+import ourTeam3 from "./media/ourTeam4.png";
+import firstSlide from "./media/firstSlide2.png";
+// import anyQuestions from "./media/anyQuestions.png";
+import warning from "./media/warning.jpg";
+import deception from "./media/deception.png";
+import deferNetworkTab from "./media/deferNetworkTab3.png";
+import deferNetworkTab2 from "./media/deferNetworkTab4.png";
+import googleReview from "./media/googleReview.png";
 
 import {
   Text,
@@ -133,7 +143,7 @@ function App() {
       )}
     >
       <SlideLayout.FullBleedImage src={firstSlide} />
-      <SlideLayout.VerticalImage
+      {/* <SlideLayout.VerticalImage
         objectFit="contain"
         imgContainerProps={{ padding: "7rem" }}
         listItems={[
@@ -142,7 +152,19 @@ function App() {
           "@alessbell on the internet",
         ]}
         src="https://avatars.githubusercontent.com/u/5139846?v=4"
-      ></SlideLayout.VerticalImage>
+      ></SlideLayout.VerticalImage> */}
+      <Slide>
+        <Heading>Agenda</Heading>
+        <Text>
+          <ul>
+            <li>a brief history</li>
+            <li>@defer 101: what is it, why do we need it?</li>
+            <li>@defer 201: how does it work?</li>
+          </ul>
+        </Text>
+        <Notes></Notes>
+      </Slide>
+
       <Slide>
         <Heading>A brief history</Heading>
         <Text>
@@ -181,7 +203,7 @@ function App() {
       </Slide>
       <Slide>
         <Heading>
-          What <i>is</i> @defer?
+          @defer 101: what <i>is</i> @defer?
         </Heading>
         <Text>
           <ul>
@@ -211,6 +233,89 @@ function App() {
         <Heading>The problem 🐌⏳</Heading>
         <img style={{ width: "30rem", marginTop: "5rem" }} alt="" src={code} />
       </SlideLayout.BigFact>
+
+      <SlideLayout.BigFact style={{ margin: "20rem" }}>
+        🙅‍♀️🎣
+      </SlideLayout.BigFact>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <img
+            style={{
+              width: "70rem",
+              marginTop: "1rem",
+            }}
+            alt=""
+            src={ourTeam}
+          />
+        </FlexBox>
+      </Slide>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <img
+            style={{
+              width: "55rem",
+              marginTop: "3rem",
+            }}
+            alt=""
+            src={warning}
+          />
+        </FlexBox>
+      </Slide>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <img
+            style={{
+              width: "65rem",
+              marginTop: "1rem",
+            }}
+            alt=""
+            src={ourTeam2}
+          />
+        </FlexBox>
+      </Slide>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <img
+            style={{
+              width: "50rem",
+              marginTop: "10rem",
+            }}
+            alt=""
+            src={ourTeam3}
+          />
+        </FlexBox>
+      </Slide>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <img
+            style={{
+              width: "80rem",
+              marginTop: "10rem",
+            }}
+            alt=""
+            src={deception}
+          />
+        </FlexBox>
+      </Slide>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <Heading>🎉🎉🎉</Heading>
+          <img
+            style={{
+              width: "60rem",
+            }}
+            alt=""
+            src={googleReview}
+          />
+        </FlexBox>
+      </Slide>
+
       <SlideLayout.TwoColumn
         left={
           <div style={{ marginTop: "8rem" }}>
@@ -416,6 +521,42 @@ content-type: application/json
         </div>
       </Slide>
 
+      <Slide>
+        {/* <Heading>Accept: multipart/mixed</Heading> */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img
+            alt=""
+            style={{ width: "70em", marginTop: "1em" }}
+            src={deferNetworkTab}
+          />
+        </div>
+      </Slide>
+
+      <Slide>
+        {/* <Heading>Accept: multipart/mixed</Heading> */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img
+            alt=""
+            style={{ width: "70em", marginTop: "1em" }}
+            src={deferNetworkTab2}
+          />
+        </div>
+      </Slide>
+
+      <Slide>
+        {/* <Heading>Accept: multipart/mixed</Heading> */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {/* <img
+            alt=""
+            style={{ width: "75em", marginTop: "5em" }}
+            src={devtools}
+          /> */}
+          <video controls style={{ width: "90vw", marginTop: "-2rem" }}>
+            <source src={devtoolsVideo} type="video/mp4" />
+          </video>
+        </div>
+      </Slide>
+
       {/* https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html */}
       <Slide>
         <Heading>Caniuse? Yes! 🎉</Heading>
@@ -432,6 +573,7 @@ content-type: application/json
               </a>
               )
             </li>
+            <li>Apollo Client {">="} v3.7.0</li>
             <li>Many other servers and clients support @defer</li>
             <li>Compatibility: which version of the spec do they implement?</li>
             <li>
