@@ -11,7 +11,7 @@ import ourTeam from "./media/ourTeam.png";
 import ourTeam2 from "./media/ourTeam2.png";
 import ourTeam3 from "./media/ourTeam4.png";
 import firstSlide from "./media/firstSlide2.png";
-// import anyQuestions from "./media/anyQuestions.png";
+import multipartFormat from "./media/multipart.png";
 import warning from "./media/warning.jpg";
 import deception from "./media/deception.png";
 import deferNetworkTab from "./media/deferNetworkTab3.png";
@@ -372,6 +372,36 @@ function App() {
         }
         right={<IFrame src="https://defer-pokemon-app.vercel.app/deferred" />}
       />
+
+      <Slide>
+        <div style={{ marginTop: "2rem" }}>
+          <CodePane language="jsx" theme={nightOwl} showLineNumbers={false}>
+            {`
+            function Pokemon({ selectedPokemon }) {
+              const { data, loading } = useQuery(query, {
+                variables: { name: selectedPokemon },
+              });
+
+              if (loading) return <Spinner />;
+
+              return (
+                <>
+                  {data.pokemon ? (
+                    <h2>
+                      HP:{" "}
+                      {
+                        data.pokemon.stats.find(({ stat }) => stat.name === "hp")
+                          .base_stat
+                      }
+                    </h2>
+                  ) : null}
+                </>
+              )
+            };
+              `}
+          </CodePane>
+        </div>
+      </Slide>
       <Slide>
         <div
           style={{
@@ -382,7 +412,11 @@ function App() {
             margin: "0 2rem",
           }}
         >
-          <Heading>Accept: multipart/mixed</Heading>
+          <Heading>
+            @defer 201
+            <br />
+            Accept: multipart/mixed
+          </Heading>
           <CodePane
             theme={nightOwl}
             highlightRanges={[
@@ -421,7 +455,6 @@ function App() {
         </Notes>
       </Slide>
       <Slide>
-        {/* <Heading>Accept: multipart/mixed</Heading> */}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <img
             alt=""
@@ -482,6 +515,27 @@ content-type: application/json
           starts or ends with the unquoted characters graphql
         </Notes>
       </Slide>
+
+      <Slide>
+        <FlexBox flexDirection="column" justifyContent="center">
+          <Heading>Content-Type: multipart/mixed</Heading>
+          <img
+            style={{ width: "60rem", marginTop: "2rem" }}
+            alt=""
+            src={multipartFormat}
+          />
+        </FlexBox>
+        <Notes>
+          - the idea of the configurable accept:multipart/mixed;boundary= string
+          dates back to the original HTTP multipart protocol, before GraphQL
+          <br />- since the boundary needs to be unambiguous, often a random
+          string like --gc0p4Jq0M2Yt08jU534c0p is used --graphql works fine for
+          GraphQL’s needs (no need for something uglier), for a specific reason:
+          in GraphQL, we assume we’re only delivering JSON, and JSON never
+          starts or ends with the unquoted characters graphql
+        </Notes>
+      </Slide>
+
       <Slide>
         <div className="explorer" style={{ height: "100%", margin: "1rem 0" }}>
           <ApolloExplorer
@@ -522,7 +576,6 @@ content-type: application/json
       </Slide>
 
       <Slide>
-        {/* <Heading>Accept: multipart/mixed</Heading> */}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <img
             alt=""
@@ -533,7 +586,6 @@ content-type: application/json
       </Slide>
 
       <Slide>
-        {/* <Heading>Accept: multipart/mixed</Heading> */}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <img
             alt=""
@@ -544,13 +596,7 @@ content-type: application/json
       </Slide>
 
       <Slide>
-        {/* <Heading>Accept: multipart/mixed</Heading> */}
         <div style={{ display: "flex", justifyContent: "center" }}>
-          {/* <img
-            alt=""
-            style={{ width: "75em", marginTop: "5em" }}
-            src={devtools}
-          /> */}
           <video controls style={{ width: "90vw", marginTop: "-2rem" }}>
             <source src={devtoolsVideo} type="video/mp4" />
           </video>
