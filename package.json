@@ -5,7 +5,7 @@
   "dependencies": {
     "@apollo/explorer": "3.6.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react-dom": "19.2.8",
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "15.5.0",
     "spectacle": "10.1.6",
